@@ -1,4 +1,4 @@
-module gopkg.in/gormigrate.v1
+module github.com/joelazar/gormigrate
 
 go 1.14
 
