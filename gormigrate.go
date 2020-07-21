@@ -373,12 +373,12 @@ func (g *Gormigrate) runMigration(migration *Migration) error {
 }
 
 func (g *Gormigrate) createMigrationTableIfNotExists() error {
-	if g.tx.HasTable(g.options.TableName) {
-		return nil
+	sql := fmt.Sprintf("SELECT * FROM %s", g.options.TableName)
+	if g.tx.Exec(sql).Error != nil {
+		sql = fmt.Sprintf("CREATE TABLE %s (%s VARCHAR(%d) PRIMARY KEY)", g.options.TableName, g.options.IDColumnName, g.options.IDColumnSize)
+		return g.tx.Exec(sql).Error
 	}
-
-	sql := fmt.Sprintf("CREATE TABLE %s (%s VARCHAR(%d) PRIMARY KEY)", g.options.TableName, g.options.IDColumnName, g.options.IDColumnSize)
-	return g.tx.Exec(sql).Error
+	return nil
 }
 
 func (g *Gormigrate) migrationRan(m *Migration) (bool, error) {

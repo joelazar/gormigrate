@@ -1,5 +1,7 @@
 module gopkg.in/gormigrate.v1
 
+go 1.14
+
 require (
 	cloud.google.com/go v0.33.1 // indirect
 	github.com/denisenkom/go-mssqldb v0.0.0-20181014144952-4e0d7dc8888f // indirect
